@@ -201,6 +201,8 @@ def pickNote(dissonance, complexity, scaliness, key, result, prevNote, prevPrevN
 		selection.append((k, pool[k]))
 	#print selection
 	picked = choice(selection)
+	if picked / 12 >= 7:
+		picked = picked - 12
 	#print picked
 	return picked
 
@@ -326,7 +328,7 @@ def generate(complexity=None, segments=None, dissonance=None, scaliness=None, sp
 		time = 0
 		prevPrevNote = 60
 		q = deque(maxlen=6)
-		note = Note(keys[key][int(random(0, 2))] + int(random(4,6) * 12), btt(song, progression[0][0]), 100 + seg.velocity, time)
+		note = Note(keys[key][int(random(0, 2))] + int(random(4,5) * 12), btt(song, progression[0][0]), 100 + seg.velocity, time)
 		time = time + note.length
 		seg.notes.append(note)
 		q.append(note)
@@ -423,7 +425,7 @@ def generate(complexity=None, segments=None, dissonance=None, scaliness=None, sp
 	#populate segments in song
 	for i in range(segments):
 		song.segs.append(copy.copy(segmentStore[i]))
-	for i in range(randint(4,12)):
+	for i in range(randint(100,150)):
 		song.segs.append(copy.copy(segmentStore[randint(0,len(segmentStore) - 1)]))
 		
 	#transpose!
@@ -444,6 +446,6 @@ def generate(complexity=None, segments=None, dissonance=None, scaliness=None, sp
 	print 'Complexity: \t' + str(complexity) + ' \nSegments: \t' + str(segments) + ' \nDissonance: \t' + str(dissonance) + ' \nScaliness: \t' + str(scaliness) + ' \nSpeed: \t\t' + str(speed) + ' \nKey: \t\t' + str(key)
 	writeSong(song, 'Samples/NewSong')
 	
-generate()
-#generate(complexity=100, dissonance=100, scaliness=100, speed=135)	
+#generate()
+generate(complexity=70, dissonance=0, scaliness=100, speed=85)	
 		

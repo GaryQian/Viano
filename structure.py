@@ -21,10 +21,10 @@ class Seg:
 	def transpose(self, n):
 		for note in self.notes:
 			num = note.note + 12 * n
-			if num > 127:
-				num = 127
+			if num / 12 >= 7:
+				num = num - 12
 			if num < 0:
-				num = 0
+				num = 20
 			note.note = num
 		
 class Song:
