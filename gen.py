@@ -68,7 +68,7 @@ keyCount = 22
 features = dict()
 features[-5] = [2, 1, 2, 1]
 features[-4] = [1, 2, 1, 2]
-features[-3] = [1, 1, 1, 1]
+features[-3] = [1, 1]
 features[-2] = [2, 2, 2, 2]
 features[-1] = [2, 2]
 features[0] = [4, 4]
@@ -207,15 +207,21 @@ def pickNote(dissonance, complexity, scaliness, key, result, prevNote, prevPrevN
 	from random import uniform
 		
 	
-def scales(octaveOffset, key, trebleTime, scaliness, complexity, velocity, song, speed):
+def scales(octaveOffset, key, trebleTime, scaliness, complexity, velocity, dissonance, song, speed):
 	time = 0
 	notes = list()
 	numTargets = randint(3,4)
 	targets = list()
 	targets.append(keys[key][0] + (4+octaveOffset) * 12)
 	if numTargets == 3:
-		targets.append(keys[key][randint(2,4)] + (5+octaveOffset) * 12)
-		targets.append(keys[key][6] + 3 * 12)
+		if randint(0,1) == 0:
+			targets.append(keys[key][randint(2,4)] + (5+octaveOffset) * 12)
+			targets.append(keys[key][6] + 3 * 12)
+		else:
+			targets = list()
+			targets.append(keys[key][0] + (5+octaveOffset) * 12)
+			targets.append(keys[key][randint(2,4)] + (4+octaveOffset) * 12)
+			targets.append(keys[key][6] + 3 * 12)
 	if numTargets == 4:
 		targets.append(keys[key][randint(2,3)] + (5+octaveOffset) * 12)
 		targets.append(keys[key][randint(3,5)] + (3+octaveOffset) * 12)
@@ -243,7 +249,10 @@ def scales(octaveOffset, key, trebleTime, scaliness, complexity, velocity, song,
 		while i != targ:
 			if time > trebleTime:
 				break
+			
 			note = Note(i, btt(song, notelength), 60 + velocity, time)
+			if (randint(0,100) < 8 * (dissonance / 100)):
+				note = Note(i, btt(song, notelength * 2), 60 + velocity, time)
 			time = time + note.length
 			notes.append(note)
 			#print note.note
@@ -267,7 +276,7 @@ def scales(octaveOffset, key, trebleTime, scaliness, complexity, velocity, song,
 		j = j + 1
 	return notes
 	
-def generate(complexity=None, segments=None, dissonance=None, scaliness=None, speed= None, key=None):
+def generate(complexity=None, segments=None, dissonance=None, scaliness=None, speed= None, key=None, filename='Samples/NewSong'):
 	print "Generating song!"
 	if complexity is None:
 		complexity = random(10, 100)
@@ -357,7 +366,7 @@ def generate(complexity=None, segments=None, dissonance=None, scaliness=None, sp
 		trebleTime = time
 		#generate scales instead of bass line
 		if randint(0,80) < scaliness:
-			notes = scales(0, key, trebleTime, scaliness, complexity, seg.velocity, song, speed)
+			notes = scales(0, key, trebleTime, scaliness, complexity, seg.velocity, dissonance, song, speed)
 			for n in notes:
 				seg.notes.append(n);
 		else:
@@ -433,7 +442,7 @@ def generate(complexity=None, segments=None, dissonance=None, scaliness=None, sp
 	#	song.basssegs.append(copy.copy(basssegmentStore[randint(0,len(basssegmentStore) - 1)]))
 	print '\n\tSong Parameters:'
 	print 'Complexity: \t' + str(complexity) + ' \nSegments: \t' + str(segments) + ' \nDissonance: \t' + str(dissonance) + ' \nScaliness: \t' + str(scaliness) + ' \nSpeed: \t\t' + str(speed) + ' \nKey: \t\t' + str(key)
-	writeSong(song, 'testout')
+	writeSong(song, 'Samples/NewSong')
 	
 generate()
 #generate(complexity=100, dissonance=100, scaliness=100, speed=135)	
