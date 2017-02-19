@@ -446,6 +446,6 @@ def generate(complexity=None, segments=None, dissonance=None, scaliness=None, sp
 	print 'Complexity: \t' + str(complexity) + ' \nSegments: \t' + str(segments) + ' \nDissonance: \t' + str(dissonance) + ' \nScaliness: \t' + str(scaliness) + ' \nSpeed: \t\t' + str(speed) + ' \nKey: \t\t' + str(key)
 	writeSong(song, 'Samples/NewSong')
 	
-#generate()
-generate(complexity=70, dissonance=0, scaliness=100, speed=85)	
+generate()
+#generate(complexity=100, dissonance=100, scaliness=100, speed=120)	
 		
