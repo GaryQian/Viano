@@ -444,8 +444,9 @@ def generate(complexity=None, segments=None, dissonance=None, scaliness=None, sp
 	#	song.basssegs.append(copy.copy(basssegmentStore[randint(0,len(basssegmentStore) - 1)]))
 	print '\n\tSong Parameters:'
 	print 'Complexity: \t' + str(complexity) + ' \nSegments: \t' + str(segments) + ' \nDissonance: \t' + str(dissonance) + ' \nScaliness: \t' + str(scaliness) + ' \nSpeed: \t\t' + str(speed) + ' \nKey: \t\t' + str(key)
-	writeSong(song, 'Samples/NewSong')
+	writeSong(song, filename)
 	
-generate()
-#generate(complexity=100, dissonance=100, scaliness=100, speed=120)	
+for i in range(15,30):
+	generate(filename='Samples/BatchSample' + str(i))
+#generate(complexity=50, dissonance=0, scaliness=100, speed=70)	
 		
