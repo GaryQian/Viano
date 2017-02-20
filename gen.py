@@ -446,7 +446,7 @@ def generate(complexity=None, segments=None, dissonance=None, scaliness=None, sp
 	print 'Complexity: \t' + str(complexity) + ' \nSegments: \t' + str(segments) + ' \nDissonance: \t' + str(dissonance) + ' \nScaliness: \t' + str(scaliness) + ' \nSpeed: \t\t' + str(speed) + ' \nKey: \t\t' + str(key)
 	writeSong(song, filename)
 	
-for i in range(30,100):
+for i in range(100,300):
 	generate(filename='Samples/Batch/BatchSample' + str(i))
 #generate(complexity=50, dissonance=0, scaliness=100, speed=70)	
 		
